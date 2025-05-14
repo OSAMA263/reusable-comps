@@ -6,7 +6,10 @@ import AppContext from "../../context/AppContext";
 
 export default function Product() {
   const context = useContext(AppContext);
-  if (!context) throw new Error("AppContext is undefined. Make sure App is wrapped in AppProvider.");
+  if (!context)
+    throw new Error(
+      "AppContext is undefined. Make sure Product is wrapped in AppProvider."
+    );
   const { setActiveToast } = context;
 
   return (
@@ -18,13 +21,13 @@ export default function Product() {
         <Button
           variant="light"
           onClick={() =>
-            setActiveToast((prev) => ({
-              ...prev,
+            setActiveToast({
               active: true,
-              text: "producted added",
+              text: "Product added!",
               status: "success",
-              direction: ["top", "right"],
-            }))
+              direction: ["top", "center"],
+              duration: 2000,
+            })
           }
           styles={{ backgroundColor: "#1b2d2f" }}
           icon={HiShoppingCart}

@@ -6,7 +6,13 @@ export default function Toast() {
   if (!context) throw new Error("AppContext is undefined. Make sure Toast is wrapped in AppProvider.");
   const { activeToast, setActiveToast } = context;
 
-  const { duration, status, text, active, direction } = activeToast;
+  const {
+    duration = 1000,
+    status,
+    text,
+    active,
+    direction = ["top", "center"],
+  } = activeToast;
   // position styles
   const positionStyle: React.CSSProperties = {
     zIndex: 696969696969,
@@ -20,14 +26,13 @@ export default function Toast() {
   };
 
   // apply position based on direction values
-  if (direction.includes("center")) {
+  if (direction && direction.includes("center")) {
     if (direction.includes("top")) {
       positionStyle.top = active ? 6 : -100;
       positionStyle.left = "50%";
       positionStyle.transform = "translateX(-50%)";
     } else if (direction.includes("bottom")) {
       positionStyle.bottom = active ? 6 : -100;
-      positionStyle.left = "50%";
       positionStyle.left = "50%";
       positionStyle.transform = "translateX(-50%)";
     } else if (direction.includes("left")) {
@@ -47,7 +52,7 @@ export default function Toast() {
         positionStyle.top = "-100px";
       }
     }
-  } else {
+  } else if (direction) {
     if (direction.includes("top")) {
       positionStyle.top = active ? 6 : -100;
     }
@@ -64,12 +69,15 @@ export default function Toast() {
 
   useEffect(() => {
     if (!active) return;
-    const timer = setTimeout(
-      () => setActiveToast((prev) => ({ ...prev,status:"info", active: false })),
-      duration
-    );
+    const timer = setTimeout(() => {
+      setActiveToast({
+        ...activeToast,
+        status: "info",
+        active: false,
+      });
+    }, duration);
     return () => clearTimeout(timer);
-  }, [active]);
+  }, [active, duration, setActiveToast, activeToast]);
 
   return (
     <div

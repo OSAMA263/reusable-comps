@@ -13,7 +13,10 @@ const modals = ["Product", "Article", "Profile"];
 
 function App() {
   const context = useContext(AppContext);
-  if (!context) throw new Error("AppContext is undefined. Make sure App is wrapped in AppProvider.");
+  if (!context)
+    throw new Error(
+      "AppContext is undefined. Make sure App is wrapped in AppProvider."
+    );
   const { setActiveToast, setModalIsOpen } = context;
   const [modalContent, setModalContent] = useState("Product");
 
@@ -41,7 +44,7 @@ function App() {
         </Button>
         {/* u can override the main button styles with the prop styles */}
         <Button
-        size="sm"
+          size="sm"
           styles={{
             borderRadius: 20,
             background: "linear-gradient(90deg, #f0f, #0ff)",
@@ -84,10 +87,12 @@ function App() {
       <h2>Toast</h2>
       <Button
         onClick={() =>
-          setActiveToast((prev) => ({
-            ...prev,
+          setActiveToast({
             active: true,
-          }))
+            text: "test",
+            status: "info",
+            direction: ["bottom", "center"],
+          })
         }
         styles={{ marginBottom: 16 }}
       >
