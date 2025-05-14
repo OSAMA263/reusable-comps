@@ -3,7 +3,7 @@ import AppContext from "../context/AppContext";
 
 export default function Toast() {
   const context = useContext(AppContext);
-
+  if (!context) throw new Error("AppContext is undefined. Make sure Toast is wrapped in AppProvider.");
   const { activeToast, setActiveToast } = context;
 
   const { duration, status, text, active, direction } = activeToast;

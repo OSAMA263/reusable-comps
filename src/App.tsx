@@ -13,6 +13,7 @@ const modals = ["Product", "Article", "Profile"];
 
 function App() {
   const context = useContext(AppContext);
+  if (!context) throw new Error("AppContext is undefined. Make sure App is wrapped in AppProvider.");
   const { setActiveToast, setModalIsOpen } = context;
   const [modalContent, setModalContent] = useState("Product");
 

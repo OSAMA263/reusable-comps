@@ -46,7 +46,9 @@ const closeButtonStyle: React.CSSProperties = {
 };
 export default function Modal(props: ModalProps) {
   const { title, children } = props;
-  const { setModalIsOpen, modalIsOpen } = useContext(AppContext);
+  const context = useContext(AppContext);
+  if (!context) throw new Error("AppContext is undefined. Make sure Modal is wrapped in AppProvider.");
+  const { setModalIsOpen, modalIsOpen } = context;
 
   return (
     <div

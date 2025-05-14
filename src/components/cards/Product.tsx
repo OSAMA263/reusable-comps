@@ -5,7 +5,9 @@ import { useContext } from "react";
 import AppContext from "../../context/AppContext";
 
 export default function Product() {
-  const { setActiveToast } = useContext(AppContext);
+  const context = useContext(AppContext);
+  if (!context) throw new Error("AppContext is undefined. Make sure App is wrapped in AppProvider.");
+  const { setActiveToast } = context;
 
   return (
     <Card
